@@ -1,4 +1,4 @@
-package models;
+package wsb.bugtracker.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
