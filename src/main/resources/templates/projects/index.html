@@ -19,7 +19,10 @@
         <div class="col">
             <select class="form-control">
                 <option th:value="${null}" th:text="#{projects.creator}"></option>
-                <!-- TODO lista osób w systemie!!! -->
+                <option th:each="person :  ${people}"
+                        th:value="${person.getId()}"
+                        th:text="${person.getRealName()}"
+                ></option>
             </select>
         </div>
 
