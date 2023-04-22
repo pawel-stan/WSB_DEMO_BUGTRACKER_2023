@@ -30,17 +30,14 @@
 
         <div class="col">
             <input th:field="*{globalSearch}"
-                    class="form-control"
+                   class="form-control"
                    th:placeholder="#{common.globalSearch}"/>
         </div>
 
         <div class="col">
             <button type="submit" th:text="#{common.search}"
                     class="btn btn-primary"></button>
-        </div>
-
-        <div class="col">
-            <!-- TODO: guzik "wyczyść" -->
+            <a th:href="@{/projects}" th:text="#{common.clear}"></a>
         </div>
     </form>
 
