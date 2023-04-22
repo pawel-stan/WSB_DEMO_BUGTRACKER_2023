@@ -12,3 +12,12 @@ VALUES (nextval('project_seq'), now(), 'Słaby projekt!! 0/10', true, 'Kiepski p
 
 select *
 from project;
+
+insert into project(id, date_created, description, enabled, name, creator_id)
+select nextval('project_seq'),
+       now(),
+       'Opis ' || number,
+       true,
+       'Nazwa ' || number,
+       (number % 4) * 50 +1
+from generate_series(1, 1000) as number;
