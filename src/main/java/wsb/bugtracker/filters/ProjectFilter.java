@@ -21,25 +21,33 @@ public class ProjectFilter {
 
     public Specification<Project> buildSpecification() {
         Specification<Project> spec = Specification.where(null);
-        spec = spec.and((root, query, builder) -> builder.equal(root.get("enabled"), true));
+        spec = spec.and(equalTo("enabled", true));
+        spec = spec.and(ilike("name", name));
+        spec = spec.and(equalTo("creator", creator));
 
-        if (name != null) {
-            spec = spec.and((root, query, builder) -> builder.like(builder.lower(root.get("name")), "%" + name.toLowerCase() + "%"));
-        }
+        Specification<Project> nameIlike = ilike("name", globalSearch);
+        Specification<Project> descriptionIlike = ilike("description", globalSearch);
 
-        if (creator != null) {
-            spec = spec.and((root, query, builder) -> builder.equal(root.get("creator"), creator));
-        }
-
-        if (globalSearch != null) {
-            Specification<Project> nameIlike = (root, query, builder) -> builder.like(builder.lower(root.get("name")), "%" + globalSearch.toLowerCase() + "%");
-            Specification<Project> descriptionIlike = (root, query, builder) -> builder.like(builder.lower(root.get("description")), "%" + globalSearch.toLowerCase() + "%");
-
-            Specification<Project> globalSearchCondition = nameIlike.or(descriptionIlike);
-            spec = spec.and(globalSearchCondition);
-        }
+        Specification<Project> globalSearchCondition = nameIlike.or(descriptionIlike);
+        spec = spec.and(globalSearchCondition);
 
         return spec;
+    }
+
+    private Specification<Project> equalTo(String property, Object value) {
+        if (value == null) {
+            return Specification.where(null);
+        }
+
+        return (root, query, builder) -> builder.equal(root.get(property), value);
+    }
+
+    private Specification<Project> ilike(String property, String value) {
+        if (value == null) {
+            return Specification.where(null);
+        }
+
+        return (root, query, builder) -> builder.like(builder.lower(root.get(property)), "%" + value.toLowerCase() + "%");
     }
 
 }
