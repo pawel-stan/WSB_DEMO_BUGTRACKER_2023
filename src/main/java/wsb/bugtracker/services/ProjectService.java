@@ -1,6 +1,7 @@
 package wsb.bugtracker.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import wsb.bugtracker.models.Project;
 import wsb.bugtracker.repositories.ProjectRepository;
@@ -13,6 +14,10 @@ public class ProjectService {
     final private ProjectRepository projectRepository;
 
     public List<Project> findAll() {
-        return projectRepository.findAll();
+
+        Specification<Project> isEnabled = (root, query, builder) -> builder.equal(root.get("enabled"), true);
+        Specification<Project> nameIlikeProject = (root, query, builder) -> builder.like(builder.lower(root.get("name")), "%projekt%");
+
+        return projectRepository.findAll(isEnabled.and(nameIlikeProject));
     }
 }
