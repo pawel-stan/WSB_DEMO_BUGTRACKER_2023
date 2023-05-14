@@ -32,8 +32,15 @@
         <div class="form-group">
             <label for="project-name">Nazwa</label>
 
-            <input type="text" class="form-control" id="project-name" placeholder="Nazwa projektu"
+            <input type="text"
+                   th:class="'form-control' + ${#fields.hasErrors('name') ? ' is-invalid' : ''}"
+                   id="project-name"
+                   placeholder="Nazwa projektu"
                    th:field="*{name}">
+
+            <!-- Wyświetlamy wszystkie błędy w polu name -->
+            <small th:errors="*{name}"
+                   th:if="${#fields.hasErrors('name')}"></small>
         </div>
 
         <div class="mt-2">

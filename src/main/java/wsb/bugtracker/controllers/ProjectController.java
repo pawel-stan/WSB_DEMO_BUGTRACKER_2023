@@ -1,9 +1,11 @@
 package wsb.bugtracker.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,11 +53,20 @@ public class ProjectController {
     }
 
     @PostMapping("/save")
-    ModelAndView save(@ModelAttribute Project project) {
+    ModelAndView save(@ModelAttribute @Valid Project project,
+                      BindingResult bindingResult) {
+
+        ModelAndView modelAndView = new ModelAndView("redirect:/projects");
+
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("projects/create");
+            modelAndView.addObject("project", project);
+            modelAndView.addObject("people", personService.findAll());
+            return modelAndView;
+        }
 
         projectService.save(project);
 
-        ModelAndView modelAndView = new ModelAndView("redirect:/projects");
         return modelAndView;
     }
 }

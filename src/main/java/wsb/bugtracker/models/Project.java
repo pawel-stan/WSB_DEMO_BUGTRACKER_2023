@@ -1,6 +1,9 @@
 package wsb.bugtracker.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.util.Date;
@@ -14,6 +17,9 @@ public class Project {
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @NotNull
+    @NotEmpty
+    @Size(min = 3, max = 10)
     private String name;
 
     @Column(nullable = false)
