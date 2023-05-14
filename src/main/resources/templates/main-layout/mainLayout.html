@@ -12,11 +12,11 @@
 
 
 <div class="container">
-    <div th:replace="/main-layout/navbar :: navbar"></div>
+    <div th:replace="~{/main-layout/navbar :: navbar}"></div>
 
     <section layout:fragment="custom-content"></section>
 
-    <div th:replace="/main-layout/footer :: footer"></div>
+    <div th:replace="~{/main-layout/footer :: footer}"></div>
 </div>
 
 

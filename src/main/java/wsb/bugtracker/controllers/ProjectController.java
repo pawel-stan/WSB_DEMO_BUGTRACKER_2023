@@ -6,10 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import wsb.bugtracker.filters.ProjectFilter;
 import wsb.bugtracker.models.Person;
@@ -68,5 +65,12 @@ public class ProjectController {
         projectService.save(project);
 
         return modelAndView;
+    }
+
+    @GetMapping("/delete/{id}")
+    ModelAndView delete(@PathVariable Long id) {
+        System.out.println("usuwanie projektu " + id);
+        projectService.delete(id);
+        return new ModelAndView("redirect:/projects");
     }
 }

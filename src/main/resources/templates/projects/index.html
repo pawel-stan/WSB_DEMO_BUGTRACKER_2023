@@ -48,6 +48,7 @@
 
             <div class="card-body">
                 <p class="card-text" th:text="${project.getDescription()}"></p>
+                <a th:href="@{/projects/delete/{id}(id=${project.getId()})}">usuń</a>
             </div>
         </div>
     </section>
