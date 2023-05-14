@@ -21,7 +21,7 @@
                 Twórca
             </label>
 
-            <select id="project-creator" th:field="*{creator}">
+            <select id="project-creator" th:field="*{creator}" class="form-control">
                 <option th:each="person : ${people}"
                         th:value="${person.id}"
                         th:text="${person.realName}">
@@ -32,7 +32,7 @@
         <div class="form-group">
             <label for="project-name">Nazwa</label>
 
-            <input type="email" class="form-control" id="project-name" placeholder="Nazwa projektu"
+            <input type="text" class="form-control" id="project-name" placeholder="Nazwa projektu"
                    th:field="*{name}">
         </div>
 

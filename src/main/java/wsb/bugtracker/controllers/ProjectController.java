@@ -51,8 +51,11 @@ public class ProjectController {
     }
 
     @PostMapping("/save")
-    ModelAndView save() {
-        ModelAndView modelAndView = new ModelAndView();
+    ModelAndView save(@ModelAttribute Project project) {
+
+        projectService.save(project);
+
+        ModelAndView modelAndView = new ModelAndView("redirect:/projects");
         return modelAndView;
     }
 }
