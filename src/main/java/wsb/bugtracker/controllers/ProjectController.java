@@ -2,11 +2,11 @@ package wsb.bugtracker.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import wsb.bugtracker.filters.ProjectFilter;
@@ -35,6 +35,21 @@ public class ProjectController {
         return modelAndView;
     }
 
+    @GetMapping("/create")
+    ModelAndView create() {
+        ModelAndView modelAndView = new ModelAndView("projects/create");
 
+        Project newProject = new Project();
+        newProject.setEnabled(true);
 
+        modelAndView.addObject("project", newProject);
+
+        return modelAndView;
+    }
+
+    @PostMapping("/save")
+    ModelAndView save() {
+        ModelAndView modelAndView = new ModelAndView();
+        return modelAndView;
+    }
 }
