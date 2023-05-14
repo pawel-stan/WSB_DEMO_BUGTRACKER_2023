@@ -44,6 +44,9 @@ public class ProjectController {
 
         modelAndView.addObject("project", newProject);
 
+        List<Person> people = personService.findAll();
+        modelAndView.addObject("people", people);
+
         return modelAndView;
     }
 

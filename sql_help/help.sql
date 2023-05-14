@@ -1,23 +1,26 @@
-insert into person(id, email, password, real_name, username)
-VALUES (nextval('person_seq'), 'email@email.com', 'haslo', 'Kasia D', 'kasia-admin');
+INSERT INTO person(id, email, password, real_name, username)
+VALUES (NEXTVAL('person_seq'), 'email@email.com', 'haslo', 'Kasia D', 'kasia-admin');
 
-select *
-from person;
+INSERT INTO person(id, email, password, real_name, username)
+VALUES (NEXTVAL('person_seq'), 'pawel@email.com', 'haslo', 'Paweł S', 'pawel-admin');
 
-insert into project(id, date_created, description, enabled, name, creator_id)
-VALUES (nextval('project_seq'), now(), 'Słaby projekt!! 0/10', true, 'Kiepski projekt', 1),
-       (nextval('project_seq'), now(), 'Projekt AAAAAA', true, 'Projekt A', 1),
-       (nextval('project_seq'), now(), 'Projekt X', true, 'Projekt X', 1),
-       (nextval('project_seq'), now(), 'Trackowanie błędów w aplikacji', true, 'BugTracker', 1);
+SELECT *
+FROM person;
 
-select *
-from project;
+INSERT INTO project(id, date_created, description, enabled, name, creator_id)
+VALUES (NEXTVAL('project_seq'), NOW(), 'Słaby projekt!! 0/10', TRUE, 'Kiepski projekt', 1),
+       (NEXTVAL('project_seq'), NOW(), 'Projekt AAAAAA', TRUE, 'Projekt A', 1),
+       (NEXTVAL('project_seq'), NOW(), 'Projekt X', TRUE, 'Projekt X', 1),
+       (NEXTVAL('project_seq'), NOW(), 'Trackowanie błędów w aplikacji', TRUE, 'BugTracker', 1);
 
-insert into project(id, date_created, description, enabled, name, creator_id)
-select nextval('project_seq'),
-       now(),
+SELECT *
+FROM project;
+
+INSERT INTO project(id, date_created, description, enabled, name, creator_id)
+SELECT NEXTVAL('project_seq'),
+       NOW(),
        'Opis ' || number,
-       true,
+       TRUE,
        'Nazwa ' || number,
-       (number % 4) * 50 +1
-from generate_series(1, 1000) as number;
+       (number % 4) * 50 + 1
+FROM GENERATE_SERIES(1, 1000) AS number;
