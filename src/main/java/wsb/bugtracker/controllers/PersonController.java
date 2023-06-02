@@ -3,17 +3,13 @@ package wsb.bugtracker.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import wsb.bugtracker.filters.ProjectFilter;
-import wsb.bugtracker.models.Person;
-import wsb.bugtracker.models.Project;
 import wsb.bugtracker.services.PersonService;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/person")
@@ -23,6 +19,7 @@ public class PersonController {
     final private PersonService personService;
 
     @GetMapping
+    @Secured("ROLE_LIST_USER")
     ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("person/index");
         modelAndView.addObject("people", personService.findAll());
@@ -31,6 +28,7 @@ public class PersonController {
 
 
     @GetMapping("/delete/{id}")
+    @Secured("ROLE_DELETE_USER")
     ModelAndView delete(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("person/index");
         try {
