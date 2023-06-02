@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{main-layout/mainLayout}"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Zgłoszenie</title>
+</head>
+<body>
+
+<div class="container">
+
+    <section layout:fragment="custom-content">
+
+        <h1>
+            Nowe zgłoszenie
+        </h1>
+
+        <form th:action="@{/issues/save}" th:object="${issue}" method="post">
+
+            <div class="form-group">
+                <label for="project">
+                    Projekt
+                </label>
+
+                <select id="project" th:field="*{project}" class="form-control">
+                    <option th:each="project : ${projects}"
+                            th:value="${project.id}"
+                            th:text="${project.name}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="status">
+                    Status
+                </label>
+
+                <select id="status" th:field="*{status}" class="form-control">
+                    <option th:each="s : ${T(wsb.bugtracker.models.Status).values()}"
+                            th:value="${s}"
+                            th:text="${s}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="issue-name">Kod</label>
+
+                <input type="text"
+                       th:class="'form-control' + ${#fields.hasErrors('name') ? ' is-invalid' : ''}"
+                       id="issue-name"
+                       placeholder="Nazwa zgłoszenie"
+                       th:field="*{name}">
+
+                <!-- Wyświetlamy wszystkie błędy w polu name -->
+                <small th:errors="*{name}"
+                       th:if="${#fields.hasErrors('name')}"></small>
+            </div>
+
+            <div class="mt-2">
+                <button type="submit" class="btn btn-primary">
+                    Zapisz
+                </button>
+            </div>
+        </form>
+    </section>
+</div>
+</body>
+</html>

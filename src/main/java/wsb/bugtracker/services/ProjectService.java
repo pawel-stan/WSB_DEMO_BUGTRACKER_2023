@@ -17,6 +17,10 @@ import java.util.List;
 public class ProjectService {
     final private ProjectRepository projectRepository;
 
+    public Iterable<Project> findAll() {
+        return projectRepository.findAll();
+    }
+
     public Page<Project> findAll(Specification<Project> specification, Pageable pageable) {
         return projectRepository.findAll(specification, pageable);
     }
