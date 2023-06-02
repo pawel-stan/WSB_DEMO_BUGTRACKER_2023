@@ -46,4 +46,9 @@ public class PersonService {
 
         personRepository.save(newPerson);
     }
+
+    public void saveAllAuthorities(Person person) {
+        // Znajdź wszystkie istniejące w bazie Authority
+        // Dodaj użytkownikowi person wpis w PersonAuthorities, jeżeli jeszcze takiego nie ma dla danego uprawnienia
+    }
 }
