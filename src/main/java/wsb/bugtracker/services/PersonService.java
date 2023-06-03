@@ -1,6 +1,7 @@
 package wsb.bugtracker.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import wsb.bugtracker.models.Person;
@@ -24,9 +25,17 @@ public class PersonService {
         personRepository.deleteById(id);
     }
 
+    @Value("${my.wsb.bugtracker.admin.username}")
+    private String adminUsername;
+
+    @Value("${my.wsb.bugtracker.admin.pass}")
+    private String adminPass;
+
     public void saveAdmin() {
-        String username = "admin";
-        String password = "aA123456";
+        String username = adminUsername;
+        String password = adminPass;
+
+        System.out.println("nazwa użytkownika administratora: " + adminUsername);
 
         Optional<Person> person = personRepository.findByUsername(username);
 
