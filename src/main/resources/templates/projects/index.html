@@ -63,7 +63,7 @@
                 </a>
             </li>
 
-            <li th:each="pageNumber : ${#numbers.sequence(0, projects.getTotalPages() - 1)}"
+            <li th:each="pageNumber : ${#numbers.sequence(T(java.lang.Math).max(projects.number - 2, 0), T(java.lang.Math).min(projects.number + 2, projects.totalPages - 1))}"
                 th:class="${'page-item ' + ((pageNumber == projects.number) ? 'active' : '')}">
                 <a th:href="@{'/projects?' + ${filter.toQueryString(pageNumber)}}"
                    th:text="${pageNumber + 1}"
