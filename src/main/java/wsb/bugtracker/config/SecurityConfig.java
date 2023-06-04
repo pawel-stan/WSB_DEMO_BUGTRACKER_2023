@@ -25,12 +25,43 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-//                        .loginPage("/login")
-                                .permitAll()
-                );
+                        .loginPage("/login")
+                        .permitAll()
+                        .defaultSuccessUrl("/projects")
+                        .failureUrl("/loginError")
+                ).logout((logout) -> logout
+                        .permitAll()
+                        .logoutUrl("/logout")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID"));
 
         return httpSecurity.build();
     }
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+//        httpSecurity.csrf()
+//                .disable()
+//                .authorizeHttpRequests()
+//                .antMatchers("/admin/**")
+//                .hasRole("ADMIN")
+//                .antMatchers("/anonymous*")
+//                .anonymous()
+//                .antMatchers("/login*")
+//                .permitAll()
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .formLogin()
+//                .loginPage("/login.html")
+//                .loginProcessingUrl("/perform_login")
+//                .defaultSuccessUrl("/homepage.html", true)
+//                .and()
+//                .logout()
+//                .logoutUrl("/perform_logout")
+//                .deleteCookies("JSESSIONID");
+//
+//        return httpSecurity.build();
+//    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {

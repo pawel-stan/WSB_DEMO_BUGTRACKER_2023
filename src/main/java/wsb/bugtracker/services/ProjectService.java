@@ -1,6 +1,7 @@
 package wsb.bugtracker.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -16,6 +17,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProjectService {
     final private ProjectRepository projectRepository;
+
+    final private PersonService personService;
 
     public Iterable<Project> findAll() {
         return projectRepository.findAll();
@@ -34,5 +37,19 @@ public class ProjectService {
 
     public void delete(Long id) {
         projectRepository.deleteById(id);
+    }
+
+    public String createProjectShortName(String name) {
+        String[] words = name.split(" ");
+        String shortName = "";
+        for (String word : words) {
+            shortName += word.substring(0, 1);
+        }
+        return shortName;
+    }
+
+    public String createProjectDescription(Project project) {
+        String desc = project.getName() + " created by " +  personService.getProjectCreatorData(project);
+        return desc;
     }
 }

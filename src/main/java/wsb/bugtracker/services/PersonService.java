@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import wsb.bugtracker.models.Authority;
 import wsb.bugtracker.models.Person;
+import wsb.bugtracker.models.Project;
 import wsb.bugtracker.repositories.AuthorityRepository;
 import wsb.bugtracker.repositories.PersonRepository;
 
@@ -46,7 +47,7 @@ public class PersonService {
 
         if (person.isPresent()) {
             System.out.println("Użytkownik administracyjny już istnieje, przerywamy");
-            saveAllAuthorities(person.get());
+//            saveAllAuthorities(person.get());
             return;
         }
 
@@ -71,5 +72,9 @@ public class PersonService {
         person.setAuthorities(authoritySet);
 
         personRepository.save(person);
+    }
+
+    public String getProjectCreatorData(Project project) {
+        return project.getCreator().getUsername();
     }
 }

@@ -2,6 +2,7 @@ package wsb.bugtracker.controllers;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import wsb.bugtracker.services.PersonService;
 @RequiredArgsConstructor
 public class PersonController {
 
+    @Autowired
     final private PersonService personService;
 
     @GetMapping
